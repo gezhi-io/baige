@@ -1,4 +1,11 @@
 const mix = require('laravel-mix');
+module: {
+    rules: [{
+        test: /\.css$/,
+        use: ['style-loader', 'postcss-loader']
+    }]
+}
+
 
 /*
  |--------------------------------------------------------------------------
