@@ -1,10 +1,4 @@
 const mix = require('laravel-mix');
-module: {
-    rules: [{
-        test: /\.css$/,
-        use: ['style-loader', 'postcss-loader']
-    }]
-}
 
 
 /*
@@ -18,7 +12,8 @@ module: {
  |
  */
 
-mix.js('resources/js/app.js', 'public/js').postCss('resources/css/app.css', 'public/css', [
+mix.js('resources/js/app.js', 'public/js').sourceMaps();
+mix.postCss('resources/css/app.css', 'public/css', [
     require('tailwindcss'),
     require('autoprefixer'),
 ]);

@@ -1,0 +1,19 @@
+.bg-sidebar {
+    @apply bg-blue-600;
+}
+.cta-btn {
+    @apply bg-blue-600;
+}
+.upgrade-btn {
+    @apply bg-blue-600 hover:bg-blue-700;
+}
+.active-nav-link {
+    @apply bg-blue-700;
+}
+.nav-item {
+    @apply hover:bg-blue-700;
+}
+.account-link {
+    @apply hover:bg-blue-600;
+}
+
