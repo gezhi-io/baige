@@ -3,3 +3,4 @@
         @stack('js-onload')
     }
 </script>
+@yield('script')

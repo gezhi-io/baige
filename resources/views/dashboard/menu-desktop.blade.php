@@ -4,7 +4,7 @@
             <img class="w-10 h-10" src="{{ asset('logo-white.svg') }}" alt="Logo">
         </div>
     </div>
-    <nav class="text-white bg-sidebar text-base pt-3">
+    <nav class="text-white bg-sidebar text-base pt-3 overflow-y-auto">
         <a href="#" class="flex items-center active-nav-link text-white py-4 pl-6 nav-item">
             <x-icon :icon="'home'" class="mr-3" :withStroke="false" />
             后台首页

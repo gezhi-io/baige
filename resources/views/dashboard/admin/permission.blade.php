@@ -32,50 +32,54 @@
                                 <th class="px-5 py-3 border-b-2 border-gray-200 ">英文标识</th>
                                 <th class="px-5 py-3 border-b-2 border-gray-200">Guard</th>
                                 <th class="px-5 py-3 border-b-2 border-gray-200">创建时间</th>
+                                <th class="px-5 py-3 border-b-2 border-gray-200">操作</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="bg-white text-sm  text-center text-slate-800 border-indigo-200">
-                                <td class="px-3 py-5">
-                                    1
-                                </td>
-                                <td class="px-3 py-5">
-                                    后台管理
-                                </td>
-                                <td class="px-3 py-5">
-                                    dashboard
-                                </td>
-                                <td class="px-3 py-5">
-                                    web
-                                </td>
-                                <td class="px-3 py-5">
-                                    2022-01-01 12:30
-                                </td>
-                            </tr>
+                            @foreach ($permissions as $item)
+                                <tr class="bg-white text-sm  text-center text-slate-800 border-b border-indigo-200">
+                                    <td class="item-id px-3 py-3 border-r border-indigo-200">
+                                        {{ $item->id }}
+                                    </td>
+                                    <td class="px-3 py-3">
+                                        {{ $item->name_cn }}
+                                    </td>
+                                    <td class="px-3 py-3">
+                                        {{ $item->name }}
+                                    </td>
+                                    <td class="px-3 py-3">
+                                        {{ $item->guard_name }}
+                                    </td>
+                                    <td class="px-3 py-3  border-r border-indigo-200">
+                                        {{ $item->created_at->format('Y 年 m 月 d 日') }}
+                                    </td>
+                                    <td class="px-3 py-3">
+                                        <div>
+                                            <button class="edit-btn mr-3 text-teal-500" onclick="edit(this)">
+                                                <x-icon :icon="'pencil'" :withStroke="false" />
+                                            </button>
+                                            <button class="del-btn text-amber-600">
+                                                <x-icon :icon="'trash'" :withStroke="false" />
+                                            </button>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            @endforeach
+
                         </tbody>
                     </table>
-                    <div
-                        class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
-                        <span class="text-xs xs:text-sm text-gray-900">
-                            Showing 1 to 4 of 50 Entries
-                        </span>
-                        <div class="inline-flex mt-2 xs:mt-0">
-                            <button
-                                class="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-l">
-                                Prev
-                            </button>
-                            <button
-                                class="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-r">
-                                Next
-                            </button>
-                        </div>
+                    <div class="px-5 py-5 bg-white border-t">
+                        {{ $permissions->links() }}
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="md:col-span-4">
-            <form class="bg-white py-10 px-5 mt-4 rounded-lg shadow-lg min-w-full">
+            <form id="form" class="bg-white py-10 px-5 mt-4 rounded-lg shadow-lg min-w-full"
+                action="{{ route('permission.store') }}" method="POST">
+                @csrf
                 <h2 class="text-gray-800 font-lg font-bold text-center leading-tight mb-4">添加/更新</h2>
                 <div>
                     <label class="text-gray-800 text-sm font-bold leading-tight tracking-normal"
@@ -108,4 +112,24 @@
             </form>
         </div>
     </div>
+    @section('script')
+        <script>
+            function edit(target) {
+                var tr=target.closest('tr');
+                var id = tr.querySelectorAll('.item-id')[0].innerText;
+                var info_url = "{{ route('permission.info', 100100101) }}".replace('100100101', id);
+                var update_url = "{{ route('permission.update', 100100101) }}".replace('100100101', id);
+                axios.get(info_url).then(function(response) {
+                document.getElementById('form').setAttribute("action", update_url)
+                document.getElementById('name_cn').setAttribute("value", response.data.name_cn);
+                document.getElementById('name').setAttribute("value", response.data.name);
+                document.getElementById('guard').setAttribute("value", response.data.guard_name);
+                
+            }).catch(function(error) {
+                // 处理错误情况
+                console.log(error);
+            });
+            }
+        </script>
+    @endsection
 </x-dashboard-layout>

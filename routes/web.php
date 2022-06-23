@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Dashboard\PermissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,8 +22,9 @@ Route::get('/dashboard', function () {
     return view('dashboard.index');
 })->middleware(['auth'])->name('dashboard');
 
-Route::get('/permission', function () {
-    return view('dashboard.admin.permission');
-})->middleware(['auth'])->name('permission');
+Route::get('/permission', [PermissionController::class,'index'])->middleware(['auth'])->name('permission');
+Route::post('/permission/store', [PermissionController::class,'store'])->middleware(['auth'])->name('permission.store');
+Route::get('/permission/info/{id}', [PermissionController::class,'info'])->middleware(['auth'])->name('permission.info');
+Route::post('/permission/update/{id}', [PermissionController::class,'update'])->middleware(['auth'])->name('permission.update');
 
 require __DIR__.'/auth.php';
