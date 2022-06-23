@@ -1,10 +1,10 @@
 <aside class="relative bg-sidebar h-screen w-64 hidden sm:block shadow-xl">
-    <div class="p-6 grid">
+    <div class="p-4 grid">
         <div class="place-self-center">
-            <img calss="w-10 h-10" src="{{ asset('logo-white.svg') }}" alt="Logo">
+            <img class="w-10 h-10" src="{{ asset('logo-white.svg') }}" alt="Logo">
         </div>
     </div>
-    <nav class="text-white text-base pt-3">
+    <nav class="text-white bg-sidebar text-base pt-3">
         <a href="#" class="flex items-center active-nav-link text-white py-4 pl-6 nav-item">
             <x-icon :icon="'home'" class="mr-3" :withStroke="false" />
             后台首页
@@ -36,16 +36,16 @@
             <x-icon :icon="'settings'" class="mr-3" :withStroke="false" />网站管理
         </x-slot>
         <x-slot name="content">
-            <a class="px-4 py-2 w-full text-sm leading-5 flex items-center justify-center hover:bg-blue-700 hover:text-slate-50" href="route('logout')">
+            <a class="px-4 py-2 w-full text-sm leading-5 flex items-center justify-center hover:bg-blue-700 hover:text-slate-50" href="#">
                 <x-icon :icon="'tool'" class="mr-3" :withStroke="false" />通用配置
             </a>
-            <a class="px-4 py-2 w-full text-sm leading-5 flex items-center justify-center hover:bg-blue-700 hover:text-slate-50" href="route('logout')">
+            <a class="px-4 py-2 w-full text-sm leading-5 flex items-center justify-center hover:bg-blue-700 hover:text-slate-50" href="#">
                 <x-icon :icon="'users'" class="mr-3" :withStroke="false" />用户管理
             </a>
-            <a class="px-4 py-2 w-full text-sm leading-5 flex items-center justify-center hover:bg-blue-700 hover:text-slate-50" href="route('logout')">
+            <a class="px-4 py-2 w-full text-sm leading-5 flex items-center justify-center hover:bg-blue-700 hover:text-slate-50" href="#">
                 <x-icon :icon="'affiliate'" class="mr-3" :withStroke="false" />角色管理
             </a>
-            <a class="px-4 py-2 w-full text-sm leading-5 flex items-center justify-center hover:bg-blue-700 hover:text-slate-50" href="route('logout')">
+            <a class="px-4 py-2 w-full text-sm leading-5 flex items-center justify-center hover:bg-blue-700 hover:text-slate-50" href="{{route('permission')}}">
                 <x-icon :icon="'license'" class="mr-3" :withStroke="false" />权限管理
             </a>
             <form method="POST" action="{{ route('logout') }}">
