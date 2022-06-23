@@ -8,12 +8,13 @@ window._ = _;
  */
 
 import axios from 'axios';
-window.axios = axios;
+window.axios=axios;
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 import tippy from 'tippy.js';
 window.tippy = tippy;
+console.log(window.tippy);
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

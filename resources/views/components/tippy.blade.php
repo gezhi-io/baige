@@ -1,20 +1,18 @@
-@props(['id'])
+@props(['id', 'placement' => 'bottom'])
 
-<button id="{{ $id }}" {{ $attributes }}>
-    {{ $text }}
-</button>
-@pushOnce('js')
-    <script>
-        window.onload=function(){
-            tippy("{{ '#' . $id }}", {
-            content: `{{ $content }}`,
-            allowHTML: true,
-            trigger: "click",
-            placement: "right-end",
-            arrow: true,
-            theme:'light',
-            interactive: true,
-        });
-        }
-    </script>
-@endPushOnce
+<button id="{{ $id }}" {{ $attributes }}>{{ $inner }}</button>
+@push('js-onload')
+    // ********tippy start *****************
+    let tippy_{{ $id }} = document.getElementById('{{ $id }}');
+    tippy(tippy_{{ $id }}, {
+    content: `{{ $content }}`,
+    allowHTML: true,
+    trigger: 'click',
+    placement: '{{ $placement }}',
+    arrow: true,
+    theme: 'light',
+    interactive: true,
+    });
+    // ********tippy end *****************
+    
+@endpush

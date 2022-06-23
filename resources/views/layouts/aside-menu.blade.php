@@ -30,9 +30,9 @@
             主题设置
         </a>
     </nav>
-    <x-tippy :id="'setting'"
+    <x-tippy :id="'setting'" :placement="'right-end'"
         class="absolute bottom-0 w-full upgrade-btn  active-nav-link text-white flex items-center justify-center py-4">
-        <x-slot name="text">
+        <x-slot name="inner">
             <x-icon :icon="'settings'" class="mr-3" :withStroke="false" />网站管理
         </x-slot>
         <x-slot name="content">
