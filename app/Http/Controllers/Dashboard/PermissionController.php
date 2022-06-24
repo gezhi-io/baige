@@ -29,12 +29,12 @@ class PermissionController extends Controller
             'name' => ['required', 'unique:permissions'],
             'guard' => 'required',
         ]);
-        $this->model->create([
+        $permission=$this->model->create([
             'name_cn' => $request->name_cn,
             'name' => $request->name,
             'guard_name' => $request->guard,
         ]);
-        return back();
+        return back()->with('status', '成功添加了一个权限:' . $permission->name);
     }
 
     public function update(Request $request, $id)

@@ -8,4 +8,5 @@
 /* 第三方样式 */
 @import '~tippy.js/dist/tippy.css';
 @import '~tippy.js/themes/light.css';
-@import 'toastr.css';
+@import './toastr.css';
+@import "~sweetalert2/dist/sweetalert2.min.css"

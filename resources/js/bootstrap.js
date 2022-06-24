@@ -38,8 +38,8 @@ window.toast.options = {
     hideMethod: "fadeOut",
 };
 
-import bgModal from "./modal";
-window.bgModal = bgModal;
+import Swal from "sweetalert2";
+window.Swal = Swal;
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

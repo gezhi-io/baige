@@ -58,7 +58,7 @@
                                             <button class="edit-btn mr-3 text-teal-500">
                                                 <x-icon :icon="'pencil'" :withStroke="false" />
                                             </button>
-                                            <button class="del-btn text-amber-600" onclick="del(this)">
+                                            <button class="del-btn text-amber-600">
                                                 <x-icon :icon="'trash'" :withStroke="false" />
                                             </button>
                                         </div>
@@ -113,45 +113,13 @@
             </form>
         </div>
     </div>
-    <div class="hidden py-12 bg-gray-700 transition duration-150 ease-in-out z-10 absolute top-0 right-0 bottom-0 left-0"
-        id="modal">
-        <div role="alert" class="container mx-auto w-11/12 md:w-2/3 max-w-lg">
-            <div class="relative py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400">
-                <div class="w-full flex justify-start text-gray-600 mb-3">
-                    <h2 class="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">确认删除</h2>
-                </div>
-                <p class="text-center"> 确认删除权限 吗？</p>
-            </div>
-            <div class="flex items-center justify-start w-full">
-                <form id="del-form" action="" method="post">
-                    @csrf
-                    <button type="submit"
-                        class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-8 py-2 text-sm">确认</button>
-                </form>
-                <button
-                    class="focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm"
-                    onclick="modalHandler()">取消</button>
-            </div>
-            <button
-                class="cursor-pointer absolute top-0 right-0 mt-4 mr-5 text-gray-400 hover:text-gray-600 transition duration-150 ease-in-out rounded focus:ring-2 focus:outline-none focus:ring-gray-600"
-                onclick="modalHandler()" aria-label="close modal" role="button">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="20"
-                    height="20" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" fill="none"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" />
-                    <line x1="18" y1="6" x2="6" y2="18" />
-                    <line x1="6" y1="6" x2="18" y2="18" />
-                </svg>
-            </button>
-        </div>
-    </div>
-    </div>
     <x-toast></x-toast>
     @section('script')
         <script>
             $('.edit-btn').on('click', function() {
                 var tr = $(this).closest('tr');
-                var id = tr.find('.item-id').html();
+                console.log(tr.find('.item-id')[0].innerText);
+                var id = tr.find('.item-id')[0].innerText;
                 var info_url = "{{ route('permission.info', 100100101) }}".replace('100100101', id);
                 var update_url = "{{ route('permission.update', 100100101) }}".replace('100100101', id);
                 axios.get(info_url).then(function(response) {
@@ -166,21 +134,38 @@
                 });
             })
 
-            let del = (target) => {
+
+            $('.del-btn').on('click', function() {
                 console.log(this)
-                var tr = target.closest('tr');
-                var id = tr.querySelectorAll('.item-id')[0].innerText;
+                var tr = $(this).closest('tr');
+                var id = tr.find('.item-id')[0].innerText;
                 var info_url = "{{ route('permission.info', 100100101) }}".replace('100100101', id);
                 var delete_url = "{{ route('permission.delete', 100100101) }}".replace('100100101', id);
-                axios.get(info_url).then(function(response) {
-                    $('#del-form').attr("action", delete_url)
 
+                axios.get(info_url).then(function(response) {
+                    Swal.fire({
+                        title: '确定删除权限 ' + response.data.name_cn + ' 吗',
+                        text: "该操作不可撤销，该权限所有关联也会一并删除",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: '确认删除'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            axios.post(delete_url).then(function(res){
+                                console.log(res)
+                                // window.location.reload();
+                            }).catch(function(error) {
+                                console.log(error);
+                            });
+                        }
+                    })
                 }).catch(function(error) {
                     // 处理错误情况
                     console.log(error);
                 });
-                console.log(bgModal)
-            }
+            });
         </script>
     @endsection
 </x-dashboard-layout>
