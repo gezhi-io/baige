@@ -26,5 +26,6 @@ Route::get('/permission', [PermissionController::class,'index'])->middleware(['a
 Route::post('/permission/store', [PermissionController::class,'store'])->middleware(['auth'])->name('permission.store');
 Route::get('/permission/info/{id}', [PermissionController::class,'info'])->middleware(['auth'])->name('permission.info');
 Route::post('/permission/update/{id}', [PermissionController::class,'update'])->middleware(['auth'])->name('permission.update');
+Route::post('/permission/delete/{id}', [PermissionController::class,'destroy'])->middleware(['auth'])->name('permission.delete');
 
 require __DIR__.'/auth.php';

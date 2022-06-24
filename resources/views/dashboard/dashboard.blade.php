@@ -10,7 +10,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}"></script>
 </head>
 
 <body class="bg-gray-100 font-family-karla flex">
@@ -18,13 +18,13 @@
     <div class="w-full flex flex-col h-screen overflow-y-hidden">
         @include('dashboard.header')
         @include('dashboard.menu-mobile')
-        <div class="w-full overflow-x-hidden border-t flex flex-col p-10 pb-0">
+        <div class="w-full overflow-x-hidden border-t flex flex-col p-10 pb-0 mb-14">
             <main class="h-full">
                 {{ $slot }}
             </main>
             
         </div>
-        <footer class="fixed  w-full bottom-0 bg-gradient-to-r from-blue-700 via-teal-600 to-green-600  py-4 mt-5">
+        <footer class="fixed  w-full bottom-0 bg-gradient-to-r from-blue-700 via-blue-600 to-teal-600  py-4">
             <p class="text-center text-white">本程序由 <a target="_blank" href="https://github.com/gezhi-io" >gezhi.io</a> 创建.</p>
             
         </footer>

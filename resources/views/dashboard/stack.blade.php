@@ -1,6 +1,2 @@
-<script>
-    window.onload=function(){
-        @stack('js-onload')
-    }
-</script>
+@stack('js')
 @yield('script')
