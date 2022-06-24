@@ -42,7 +42,7 @@
             <a class="px-4 py-2 w-full text-sm leading-5 flex items-center justify-center hover:bg-blue-700 hover:text-slate-50" href="#">
                 <x-icon :icon="'users'" class="mr-3" :withStroke="false" />用户管理
             </a>
-            <a class="px-4 py-2 w-full text-sm leading-5 flex items-center justify-center hover:bg-blue-700 hover:text-slate-50" href="#">
+            <a class="px-4 py-2 w-full text-sm leading-5 flex items-center justify-center hover:bg-blue-700 hover:text-slate-50" href="{{route('role')}}">
                 <x-icon :icon="'affiliate'" class="mr-3" :withStroke="false" />角色管理
             </a>
             <a class="px-4 py-2 w-full text-sm leading-5 flex items-center justify-center hover:bg-blue-700 hover:text-slate-50" href="{{route('permission')}}">

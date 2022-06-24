@@ -154,8 +154,7 @@
                     }).then((result) => {
                         if (result.isConfirmed) {
                             axios.post(delete_url).then(function(res){
-                                console.log(res)
-                                // window.location.reload();
+                                window.location.reload();
                             }).catch(function(error) {
                                 console.log(error);
                             });
