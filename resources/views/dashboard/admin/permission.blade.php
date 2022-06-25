@@ -30,6 +30,7 @@
                                 <th class="px-5 py-3 border-b-2 border-gray-200"># ID</th>
                                 <th class="px-5 py-3 border-b-2 border-gray-200">名称</th>
                                 <th class="px-5 py-3 border-b-2 border-gray-200 ">英文标识</th>
+                                <th class="px-5 py-3 border-b-2 border-gray-200 ">上级权限</th>
                                 <th class="px-5 py-3 border-b-2 border-gray-200">Guard</th>
                                 <th class="px-5 py-3 border-b-2 border-gray-200">创建时间</th>
                                 <th class="px-5 py-3 border-b-2 border-gray-200">操作</th>
@@ -46,6 +47,13 @@
                                     </td>
                                     <td class="px-3 py-3">
                                         {{ $item->name }}
+                                    </td>
+                                    <td class="px-3 py-3">
+                                        @if ($loop->first)
+                                            顶级权限
+                                        @else
+                                            {{ $item->parent->name_cn }}
+                                        @endif
                                     </td>
                                     <td class="px-3 py-3">
                                         {{ $item->guard_name }}
@@ -97,6 +105,18 @@
                 </div>
                 <div>
                     <label class="text-gray-800 text-sm font-bold leading-tight tracking-normal"
+                        for="name">选择上级权限</label>
+                    <select
+                        class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
+                        name="parent_id" id="parent_id" placeholder="选择上级权限" autocomplete="off">
+                        <option value="{{ $root->id }}">{{ $root->name_cn }}</option>
+                        @foreach ($tops as $top)
+                            <option value="{{ $top->id }}">{{ $top->name_cn }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div>
+                    <label class="text-gray-800 text-sm font-bold leading-tight tracking-normal"
                         for="guard">Guard</label>
                     <input
                         class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
@@ -116,6 +136,14 @@
     <x-toast></x-toast>
     @section('script')
         <script>
+            var ts=new TomSelect('#parent_id', {
+                create: false,
+                render: {
+                    no_results: function(data, escape) {
+                        return '<div class="no-results">没有查到～</div>';
+                    },
+                }
+            });
             $('.edit-btn').on('click', function() {
                 var tr = $(this).closest('tr');
                 console.log(tr.find('.item-id')[0].innerText);
@@ -127,6 +155,7 @@
                     $('#name_cn').attr("value", response.data.name_cn);
                     $('#name').attr("value", response.data.name);
                     $('#guard').attr("value", response.data.guard_name);
+                    ts.setValue([response.data.parent_id])
 
                 }).catch(function(error) {
                     // 处理错误情况
@@ -153,7 +182,7 @@
                         confirmButtonText: '确认删除'
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            axios.post(delete_url).then(function(res){
+                            axios.post(delete_url).then(function(res) {
                                 window.location.reload();
                             }).catch(function(error) {
                                 console.log(error);
@@ -165,6 +194,7 @@
                     console.log(error);
                 });
             });
+            
         </script>
     @endsection
 </x-dashboard-layout>

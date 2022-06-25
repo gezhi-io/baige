@@ -1,23 +1,7 @@
 <x-dashboard-layout>
-    <h2 class="text-lg text-black pb-2">权限管理</h2>
+    <h2 class="text-lg text-black pb-2">角色管理  </h2>
     <div class="my-2 flex sm:flex-row flex-col">
-        <div class="flex flex-row mb-1 sm:mb-0">
-            <div class="relative">
-                <select
-                    class="h-full rounded-l border block w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-gray-500  appearance-none">
-                    <option>10</option>
-                    <option>20</option>
-                    <option>50</option>
-                </select>
-            </div>
-        </div>
-        <div class="block relative">
-            <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2">
-                <x-icon :icon="'search'" class="fill-current h-4 w-4 text-gray-500" />
-            </span>
-            <input placeholder="搜索"
-                class="appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none" />
-        </div>
+        <a class="border border-green-500 bg-green-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-green-600 focus:outline-none focus:shadow-outline" href="{{route('permission.assign')}}">去授权</a>
     </div>
 
     <div class="w-full grid md:grid-cols-12 gap-4 mt-4">

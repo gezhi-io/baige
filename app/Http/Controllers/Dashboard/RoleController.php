@@ -52,11 +52,21 @@ class RoleController extends Controller
         ]);
         return back()->with('status', '成功更新了一个角色:' . $role->name);
     }
+
     public function info($id)
     {
         $role = $this->model->find($id);
         return response()->json($role);
     }
+
+    public function rpinfo($id)
+    {
+        $role = $this->model->find($id);
+        return response()->json($role->permissions->pluck('id'));
+    }
+
+    
+
 
     public function destroy($id)
     {

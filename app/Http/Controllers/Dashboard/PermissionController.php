@@ -4,22 +4,27 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Permission;
+use App\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class PermissionController extends Controller
 {
     //
     protected $model;
+    protected $administrator;
 
     public function __construct(Permission $model)
     {
         $this->model = $model;
+        $this->administrator = Role::where('name', 'administrator')->first();
     }
 
     public function index($number = 8)
     {
         $permissions = $this->model->paginate($number);
-        return view('dashboard.admin.permission', ['permissions' => $permissions]);
+        $root = $this->model->where('name', 'manage-everything')->first();
+        $tops = $this->model->where('parent_id', $root->id)->get();
+        return view('dashboard.admin.permission', ['permissions' => $permissions, 'root' => $root, 'tops' => $tops]);
     }
 
     public function store(Request $request)
@@ -27,13 +32,16 @@ class PermissionController extends Controller
         $request->validate([
             'name_cn' => 'required',
             'name' => ['required', 'unique:permissions'],
+            'parent_id' => 'required',
             'guard' => 'required',
         ]);
-        $permission=$this->model->create([
+        $permission = $this->model->create([
             'name_cn' => $request->name_cn,
             'name' => $request->name,
+            'parent_id' => $request->parent_id,
             'guard_name' => $request->guard,
         ]);
+        $this->administrator->givePermissionTo($permission);
         return back()->with('status', '成功添加了一个权限:' . $permission->name);
     }
 
@@ -42,12 +50,14 @@ class PermissionController extends Controller
         $request->validate([
             'name_cn' => 'required',
             'name' => ['required', 'unique:permissions,name,' . $id],
+            'parent_id' => 'required',
             'guard' => 'required',
         ]);
         $permission = $this->model->find($id);
         $permission->update([
             'name_cn' => $request->name_cn,
             'name' => $request->name,
+            'parent_id' => $request->parent_id,
             'guard_name' => $request->guard,
         ]);
         return back()->with('status', '成功更新了一个权限:' . $permission->name);

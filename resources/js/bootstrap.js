@@ -41,6 +41,9 @@ window.toast.options = {
 import Swal from "sweetalert2";
 window.Swal = Swal;
 
+import TomSelect from "tom-select";
+window.TomSelect = TomSelect;
+
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
