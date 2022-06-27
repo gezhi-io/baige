@@ -1,8 +1,9 @@
 <x-dashboard-layout>
-    <h2 class="text-lg text-black pb-2">角色管理  </h2>
-    <div class="my-2 flex sm:flex-row flex-col">
-        <a class="border border-green-500 bg-green-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-green-600 focus:outline-none focus:shadow-outline" href="{{route('permission.assign')}}">去授权</a>
+    <div class="grid grid-cols-3 w-full md:w-1/3">
+        <h2 class="text-lg text-black pb-2">角色管理  </h2>
+        <a class="border border-green-500 bg-green-500 text-white rounded-md px-4 py-1 mx-auto transition duration-500 ease select-none hover:bg-green-600 focus:outline-none focus:shadow-outline" href="{{route('permission.assign')}}">去授权</a>
     </div>
+    
 
     <div class="w-full grid md:grid-cols-12 gap-4 mt-4">
         <div class="md:col-span-8">

@@ -19,12 +19,18 @@ class PermissionController extends Controller
         $this->administrator = Role::where('name', 'administrator')->first();
     }
 
-    public function index($number = 8)
+    public function index(Request $request)
     {
+        if ($request->has('number')) {
+            $number = intval($request->number);
+            
+        } else {
+            $number = 10;
+        }
         $permissions = $this->model->paginate($number);
         $root = $this->model->where('name', 'manage-everything')->first();
         $tops = $this->model->where('parent_id', $root->id)->get();
-        return view('dashboard.admin.permission', ['permissions' => $permissions, 'root' => $root, 'tops' => $tops]);
+        return view('dashboard.admin.permission', ['permissions' => $permissions, 'root' => $root, 'tops' => $tops, 'number' => $number]);
     }
 
     public function store(Request $request)
