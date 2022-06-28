@@ -23,29 +23,39 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard.index');
-})->middleware(['auth'])->name('dashboard');
+})->name('dashboard');
 
-Route::get('/permission', [PermissionController::class, 'index'])->middleware(['auth'])->name('permission.index');
-Route::post('/permission/store', [PermissionController::class, 'store'])->middleware(['auth'])->name('permission.store');
-Route::get('/permission/info/{id}', [PermissionController::class, 'info'])->middleware(['auth'])->name('permission.info');
-Route::post('/permission/update/{id}', [PermissionController::class, 'update'])->middleware(['auth'])->name('permission.update');
-Route::post('/permission/delete/{id}', [PermissionController::class, 'destroy'])->middleware(['auth'])->name('permission.delete');
+Route::prefix('dashboard')->middleware(['auth','permission:manage-option'])->group(function () {
+    // 权限
+    Route::get('/permission', [PermissionController::class, 'index'])->name('permission.index');
+    Route::post('/permission/store', [PermissionController::class, 'store'])->name('permission.store');
+    Route::get('/permission/info/{id}', [PermissionController::class, 'info'])->name('permission.info');
+    Route::post('/permission/update/{id}', [PermissionController::class, 'update'])->name('permission.update');
+    Route::post('/permission/delete/{id}', [PermissionController::class, 'destroy'])->name('permission.delete');
+    // 角色
+    Route::get('/role', [RoleController::class, 'index'])->name('role.index');
+    Route::post('/role/store', [RoleController::class, 'store'])->name('role.store');
+    Route::get('/role/info/{id}', [RoleController::class, 'info'])->name('role.info');
+    Route::get('/role/rpinfo/{id}', [RoleController::class, 'rpinfo'])->name('role.rpinfo');
+    Route::post('/role/update/{id}', [RoleController::class, 'update'])->name('role.update');
+    Route::post('/role/delete/{id}', [RoleController::class, 'destroy'])->name('role.delete');
+    // 授权
+    Route::get('/permission/assign', [BindingController::class, 'assign'])->name('permission.assign');
+    Route::post('/permission/sync', [BindingController::class, 'sync'])->name('permission.sync');
+    // 用户
+    Route::get('/users', [UserController::class, 'index'])->name('user.index');
+    Route::post('/user/store', [UserController::class, 'store'])->name('user.store');
+    Route::get('/user/info/{id}', [UserController::class, 'info'])->name('user.info');
+    Route::post('/user/update/{id}', [UserController::class, 'update'])->name('user.update');
+    Route::post('/user/delete/{id}', [UserController::class, 'destroy'])->name('user.delete');
+    //配置
+    Route::get('/options', [OptionController::class, 'index'])->name('option.index');
+    Route::post('/option/store', [OptionController::class, 'store'])->name('option.store');
+    Route::get('/option/info/{id}', [OptionController::class, 'info'])->name('option.info');
+    Route::post('/option/update/{id}', [OptionController::class, 'update'])->name('option.update');
+    Route::post('/option/delete/{id}', [OptionController::class, 'destroy'])->name('option.delete');
+});
 
-Route::get('/role', [RoleController::class, 'index'])->middleware(['auth'])->name('role.index');
-Route::post('/role/store', [RoleController::class, 'store'])->middleware(['auth'])->name('role.store');
-Route::get('/role/info/{id}', [RoleController::class, 'info'])->middleware(['auth'])->name('role.info');
-Route::get('/role/rpinfo/{id}', [RoleController::class, 'rpinfo'])->middleware(['auth'])->name('role.rpinfo');
-Route::post('/role/update/{id}', [RoleController::class, 'update'])->middleware(['auth'])->name('role.update');
-Route::post('/role/delete/{id}', [RoleController::class, 'destroy'])->middleware(['auth'])->name('role.delete');
 
-
-Route::get('/permission/assign', [BindingController::class, 'assign'])->middleware(['auth'])->name('permission.assign');
-Route::post('/permission/sync', [BindingController::class, 'sync'])->middleware(['auth'])->name('permission.sync');
-
-Route::get('/users', [UserController::class, 'index'])->middleware(['auth'])->name('user.index');
-Route::post('/user/store', [UserController::class, 'store'])->middleware(['auth'])->name('user.store');
-Route::get('/user/info/{id}', [UserController::class, 'info'])->middleware(['auth'])->name('user.info');
-Route::post('/user/update/{id}', [UserController::class, 'update'])->middleware(['auth'])->name('user.update');
-Route::post('/user/delete/{id}', [UserController::class, 'destroy'])->middleware(['auth'])->name('user.delete');
 
 require __DIR__ . '/auth.php';
