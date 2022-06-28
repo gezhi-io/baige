@@ -59,7 +59,7 @@
             <a class="px-4 py-2 w-full text-sm leading-5 flex items-center justify-center hover:bg-blue-700 hover:text-slate-50" href="#">
                 <x-icon :icon="'affiliate'" class="mr-3" :withStroke="false" />角色管理
             </a>
-            <a class="px-4 py-2 w-full text-sm leading-5 flex items-center justify-center hover:bg-blue-700 hover:text-slate-50" href="{{route('permission')}}">
+            <a class="px-4 py-2 w-full text-sm leading-5 flex items-center justify-center hover:bg-blue-700 hover:text-slate-50" href="{{route('permission.index')}}">
                 <x-icon :icon="'license'" class="mr-3" :withStroke="false" />权限管理
             </a>
             <form method="POST" action="{{ route('logout') }}">

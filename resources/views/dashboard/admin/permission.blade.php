@@ -85,7 +85,7 @@
         </div>
 
         <div class="md:col-span-4">
-            <form id="edit-form" class="bg-white py-10 px-5 mt-4 rounded-lg shadow-lg min-w-full"
+            <form id="edit-form" class="bg-white py-10 px-5 mt-4 mb-10 rounded-lg shadow-lg min-w-full"
                 action="{{ route('permission.store') }}" method="POST">
                 @csrf
                 <h2 class="text-gray-800 font-lg font-bold text-center leading-tight mb-4">添加/更新</h2>
@@ -105,7 +105,7 @@
                 </div>
                 <div>
                     <label class="text-gray-800 text-sm font-bold leading-tight tracking-normal"
-                        for="name">选择上级权限</label>
+                        for="parent_id">选择上级权限</label>
                     <select
                         class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
                         name="parent_id" id="parent_id" placeholder="选择上级权限" autocomplete="off">

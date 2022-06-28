@@ -36,18 +36,26 @@
             <x-icon :icon="'settings'" class="mr-3" :withStroke="false" />网站管理
         </x-slot>
         <x-slot name="content">
+            @can('manage-setting')
             <a class="px-4 py-2 w-full text-sm leading-5 flex items-center justify-center hover:bg-blue-700 hover:text-slate-50" href="#">
                 <x-icon :icon="'tool'" class="mr-3" :withStroke="false" />通用配置
             </a>
-            <a class="px-4 py-2 w-full text-sm leading-5 flex items-center justify-center hover:bg-blue-700 hover:text-slate-50" href="#">
+            @endcan
+            @can('manage-user')
+            <a class="px-4 py-2 w-full text-sm leading-5 flex items-center justify-center hover:bg-blue-700 hover:text-slate-50" href="{{route('user.index')}}">
                 <x-icon :icon="'users'" class="mr-3" :withStroke="false" />用户管理
             </a>
-            <a class="px-4 py-2 w-full text-sm leading-5 flex items-center justify-center hover:bg-blue-700 hover:text-slate-50" href="{{route('role')}}">
+            @endcan
+            @can('manage-role')
+            <a class="px-4 py-2 w-full text-sm leading-5 flex items-center justify-center hover:bg-blue-700 hover:text-slate-50" href="{{route('role.index')}}">
                 <x-icon :icon="'affiliate'" class="mr-3" :withStroke="false" />角色管理
             </a>
-            <a class="px-4 py-2 w-full text-sm leading-5 flex items-center justify-center hover:bg-blue-700 hover:text-slate-50" href="{{route('permission')}}">
+            @endcan
+            @can('manage-permission')
+            <a class="px-4 py-2 w-full text-sm leading-5 flex items-center justify-center hover:bg-blue-700 hover:text-slate-50" href="{{route('permission.index')}}">
                 <x-icon :icon="'license'" class="mr-3" :withStroke="false" />权限管理
             </a>
+            @endcan
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 

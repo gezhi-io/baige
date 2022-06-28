@@ -62,7 +62,7 @@
         </div>
 
         <div class="md:col-span-4">
-            <form id="edit-form" class="bg-white py-10 px-5 mt-4 rounded-lg shadow-lg min-w-full"
+            <form id="edit-form" class="bg-white py-10 px-5 mt-4 mb-10 rounded-lg shadow-lg min-w-full"
                 action="{{ route('role.store') }}" method="POST">
                 @csrf
                 <h2 class="text-gray-800 font-lg font-bold text-center leading-tight mb-4">添加/更新</h2>

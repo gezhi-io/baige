@@ -46,6 +46,9 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        // 用于注册用户初始化角色
+        $user->assignRole('subcriber');
+
         event(new Registered($user));
 
         Auth::login($user);

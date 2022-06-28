@@ -20,6 +20,10 @@
     @apply border-none p-0 w-full overflow-hidden relative flex flex-wrap;
 }
 
+.ts-control .item {
+    @apply px-2 py-1 text-xs font-normal text-blue-700 uppercase bg-blue-200 rounded-md dark:text-blue-800 dark:bg-blue-400 bg-opacity-40;
+}
+
 .ts-dropdown [data-selectable].option {
     @apply opacity-100 cursor-pointer p-3;
 }

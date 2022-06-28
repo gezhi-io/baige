@@ -65,8 +65,6 @@ class RoleController extends Controller
         return response()->json($role->permissions->pluck('id'));
     }
 
-    
-
 
     public function destroy($id)
     {
