@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Spatie\Permission\PermissionRegistrar;
-use Spatie\Permission\Models\Permission;
+use App\Models\Permission;
+use Spatie\Permission\Models\Role;
+use App\Models\User;
 
 class CreatePermissionTables extends Migration
 {
@@ -120,6 +122,64 @@ class CreatePermissionTables extends Migration
         app('cache')
             ->store(config('permission.cache.store') != 'default' ? config('permission.cache.store') : null)
             ->forget(config('permission.cache.key'));
+        // 创建默认角色
+        $administrator=Role::create(['name'=>'administrator','name_cn'=>'超级管理员']);
+        $manager=Role::create(['name'=>'manager','name_cn'=>'管理员']);
+        $subscriber=Role::create(['name'=>'subscriber','name_cn'=>'订阅者']);
+        $author=Role::create(['name'=>'author','name_cn'=>'作者']);
+        $contributor=Role::create(['name'=>'contributor','name_cn'=>'贡献者']);
+        $editor=Role::create(['name'=>'editor','name_cn'=>'编辑']);
+
+        // 创建默认权限
+        $manage_everything=Permission::create(['name'=>'manage','name_cn'=>'所有权限','parent_id'=>0]); 
+        $manage_setting=Permission::create(['name'=>'manage','name_cn'=>'通用配置','parent_id'=>$manage_everything->id]); 
+        $add_setting=Permission::create(['name'=>'add','name_cn'=>'通用配置-添加','parent_id'=>$manage_setting->id]); 
+        $edit_setting=Permission::create(['name'=>'edit','name_cn'=>'通用配置-修改','parent_id'=>$manage_setting->id]); 
+        $delete_setting=Permission::create(['name'=>'delete','name_cn'=>'通用配置-删除','parent_id'=>$manage_setting->id]); 
+        $view_setting=Permission::create(['name'=>'view','name_cn'=>'通用配置-查看','parent_id'=>$manage_setting->id]); 
+        $manage_permission=Permission::create(['name'=>'manage','name_cn'=>'权限管理','parent_id'=>$manage_everything->id]); 
+        $add_permission=Permission::create(['name'=>'add','name_cn'=>'权限管理-添加','parent_id'=>$manage_permission->id]); 
+        $edit_permission=Permission::create(['name'=>'edit','name_cn'=>'权限管理-修改','parent_id'=>$manage_permission->id]); 
+        $delete_permission=Permission::create(['name'=>'delete','name_cn'=>'权限管理-删除','parent_id'=>$manage_permission->id]); 
+        $view_permission=Permission::create(['name'=>'view','name_cn'=>'权限管理-查看','parent_id'=>$manage_permission->id]); 
+        $manage_role=Permission::create(['name'=>'manage','name_cn'=>'角色管理','parent_id'=>$manage_everything->id]); 
+        $add_role=Permission::create(['name'=>'add','name_cn'=>'角色管理-添加','parent_id'=>$manage_role->id]); 
+        $edit_role=Permission::create(['name'=>'edit','name_cn'=>'角色管理-编辑','parent_id'=>$manage_role->id]); 
+        $delete_role=Permission::create(['name'=>'delete','name_cn'=>'角色管理-删除','parent_id'=>$manage_role->id]); 
+        $view_role=Permission::create(['name'=>'view','name_cn'=>'角色管理-查看','parent_id'=>$manage_role->id]); 
+        $manage_user=Permission::create(['name'=>'manage','name_cn'=>'用户管理','parent_id'=>$manage_everything->id]); 
+        $add_user=Permission::create(['name'=>'add','name_cn'=>'用户管理-添加','parent_id'=>$manage_user->id]); 
+        $edit_user=Permission::create(['name'=>'edit','name_cn'=>'用户管理-编辑','parent_id'=>$manage_user->id]); 
+        $delete_user=Permission::create(['name'=>'delete','name_cn'=>'用户管理-删除','parent_id'=>$manage_user->id]); 
+        $view_user=Permission::create(['name'=>'view','name_cn'=>'用户管理-查看','parent_id'=>$manage_user->id]); 
+        $manage_post=Permission::create(['name'=>'manage','name_cn'=>'文章管理','parent_id'=>$manage_everything->id]); 
+        $add_post=Permission::create(['name'=>'add','name_cn'=>'文章管理-添加','parent_id'=>$manage_post->id]); 
+        $edit_post=Permission::create(['name'=>'edit','name_cn'=>'文章管理-编辑','parent_id'=>$manage_post->id]); 
+        $delete_post=Permission::create(['name'=>'delete','name_cn'=>'文章管理-删除','parent_id'=>$manage_post->id]); 
+        $view_post=Permission::create(['name'=>'view','name_cn'=>'文章管理-查看','parent_id'=>$manage_post->id]); 
+        $manage_page=Permission::create(['name'=>'manage','name_cn'=>'页面管理','parent_id'=>$manage_everything->id]); 
+        $add_page=Permission::create(['name'=>'add','name_cn'=>'页面管理-添加','parent_id'=>$manage_page->id]); 
+        $edit_page=Permission::create(['name'=>'edit','name_cn'=>'页面管理-编辑','parent_id'=>$manage_page->id]); 
+        $delete_page=Permission::create(['name'=>'delete','name_cn'=>'页面管理-删除','parent_id'=>$manage_page->id]); 
+        $view_page=Permission::create(['name'=>'view','name_cn'=>'页面管理-查看','parent_id'=>$manage_page->id]); 
+        $manage_tag=Permission::create(['name'=>'manage','name_cn'=>'标签管理','parent_id'=>$manage_everything->id]); 
+        $add_tag=Permission::create(['name'=>'add','name_cn'=>'标签管理-添加','parent_id'=>$manage_tag->id]); 
+        $edit_tag=Permission::create(['name'=>'edit','name_cn'=>'标签管理-编辑','parent_id'=>$manage_tag->id]); 
+        $delete_tag=Permission::create(['name'=>'delete','name_cn'=>'标签管理-删除','parent_id'=>$manage_tag->id]); 
+        $view_tag=Permission::create(['name'=>'view','name_cn'=>'标签管理-查看','parent_id'=>$manage_tag->id]);
+        $manage_menu=Permission::create(['name'=>'manage','name_cn'=>'菜单管理','parent_id'=>$manage_everything->id]); 
+        $add_menu=Permission::create(['name'=>'add','name_cn'=>'菜单管理-添加','parent_id'=>$manage_menu->id]); 
+        $edit_menu=Permission::create(['name'=>'edit','name_cn'=>'菜单管理-编辑','parent_id'=>$manage_menu->id]); 
+        $delete_menu=Permission::create(['name'=>'delete','name_cn'=>'菜单管理-删除','parent_id'=>$manage_menu->id]); 
+        $view_menu=Permission::create(['name'=>'view','name_cn'=>'菜单管理-查看','parent_id'=>$manage_menu->id]); 
+
+        //角色授权
+        $permissions=Permission::all();
+        $administrator->syncPermissions($permissions);
+        $user=User::first();
+        // 给超级管理员授权
+        $user->assignRole('administrator');
+
     }
 
     /**
