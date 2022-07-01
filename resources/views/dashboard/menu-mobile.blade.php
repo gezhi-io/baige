@@ -43,35 +43,5 @@
                 <x-icon :icon="'logout'" class="mr-3" :withStroke="false" />{{ __('Log Out') }}
             </x-responsive-nav-link>
         </form>
-
-        <x-tippy :id="'mobile'" :placement="'bottom'"
-        class="w-full upgrade-btn  active-nav-link text-white flex items-center justify-center py-4">
-        <x-slot name="inner">
-            <x-icon :icon="'settings'" class="mr-3" :withStroke="false" />网站管理
-        </x-slot>
-        <x-slot name="content">
-            <a class="px-4 py-2 w-full text-sm leading-5 flex items-center justify-center hover:bg-blue-700 hover:text-slate-50" href="#">
-                <x-icon :icon="'tool'" class="mr-3" :withStroke="false" />通用配置
-            </a>
-            <a class="px-4 py-2 w-full text-sm leading-5 flex items-center justify-center hover:bg-blue-700 hover:text-slate-50" href="#">
-                <x-icon :icon="'users'" class="mr-3" :withStroke="false" />用户管理
-            </a>
-            <a class="px-4 py-2 w-full text-sm leading-5 flex items-center justify-center hover:bg-blue-700 hover:text-slate-50" href="#">
-                <x-icon :icon="'affiliate'" class="mr-3" :withStroke="false" />角色管理
-            </a>
-            <a class="px-4 py-2 w-full text-sm leading-5 flex items-center justify-center hover:bg-blue-700 hover:text-slate-50" href="{{route('permission.index')}}">
-                <x-icon :icon="'license'" class="mr-3" :withStroke="false" />权限管理
-            </a>
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                
-                <a class="px-4 py-2 w-full text-sm leading-5 flex items-center justify-center hover:bg-blue-700 hover:text-slate-50" href="{{route('logout')}}"
-                    onclick="event.preventDefault();
-                                    this.closest('form').submit();">
-                    <x-icon :icon="'logout'" class="mr-3" :withStroke="false" />{{ __('Log Out') }}
-                </a>
-            </form>
-        </x-slot>
-    </x-tippy>
     </nav>
 </header>

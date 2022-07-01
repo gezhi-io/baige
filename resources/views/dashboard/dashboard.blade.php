@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/alpine.js') }}" defer></script>
 </head>
 
 <body class="bg-gray-100 font-family-karla flex">

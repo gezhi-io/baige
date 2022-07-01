@@ -37,7 +37,7 @@
         </x-slot>
         <x-slot name="content">
             @can('manage-option')
-            <a class="px-4 py-2 w-full text-sm leading-5 flex items-center justify-center hover:bg-blue-700 hover:text-slate-50" href="#">
+            <a class="px-4 py-2 w-full text-sm leading-5 flex items-center justify-center hover:bg-blue-700 hover:text-slate-50" href="{{route('option.index')}}">
                 <x-icon :icon="'tool'" class="mr-3" :withStroke="false" />通用配置
             </a>
             @endcan

@@ -5,6 +5,7 @@ use App\Http\Controllers\Dashboard\PermissionController;
 use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\BindingController;
 use App\Http\Controllers\Dashboard\UserController;
+use App\Http\Controllers\Dashboard\OptionController;
 
 /*
 |--------------------------------------------------------------------------
